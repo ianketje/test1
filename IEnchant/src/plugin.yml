@@ -1,0 +1,13 @@
+ name: IEnchant
+ main: nl.minecraft.ian.IEnchant.IEnchant
+ author: Ian_ketje
+ version: 0.1.5
+ description: >
+              InBuild
+ commands:
+   gapple:
+     description: Mr. Ian's apple... 
+   garmor:
+     description: Mr. Ian's armor...
+   ienchant:
+     description: IEnchant main command
