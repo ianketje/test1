@@ -30,6 +30,11 @@ public class IEnchant extends JavaPlugin {
 	public boolean onCommand(CommandSender sender, Command cmd,
 			String commandLabel, String[] args) {
 
+		if (!(sender instanceof Player)) {
+			sender.sendMessage("Console no acces to commands!");
+			return true;
+		}
+
 		Player p = (Player) sender;
 		PlayerInventory pi = p.getInventory();
 
@@ -43,8 +48,10 @@ public class IEnchant extends JavaPlugin {
 				+ "You don't have permissions, If you think this isn't supposed to happen ask the staff on the server!";
 		String errora = error
 				+ "You have too many / not enough arguments, do /ienchant [command] for more info about the command!";
+		String errore = error
+				+ "Enchantment not found, Please use the specific name of the enchantment, like the one that is shown at a item!";
 
-		/* IEnchant */
+		/* IEnchantingsssssss */
 		if (cmd.getName().equalsIgnoreCase("ienchant")) {
 
 			if (args.length == 0) {
@@ -60,10 +67,15 @@ public class IEnchant extends JavaPlugin {
 
 				} else if (args[0].equalsIgnoreCase("commands")) {
 					p.sendMessage(db + "-| IEnchant commands |-");
+					p.sendMessage(db + "[ ] = required, { } = Not required");
 					p.sendMessage(b + "/GApple - " + a
 							+ "Give's you ian's apple, use with caution...");
 					p.sendMessage(b + "/GArmor - " + a
 							+ "Give's you ian's god armor, very dangerous...");
+					p.sendMessage(b + "/Enchant [Enchant name] {level} - " + a
+							+ "Enchant your item");
+					p.sendMessage(b + "/allenchant {level} - " + a
+							+ "Add all enchant to an item");
 				}
 			}
 		}
@@ -118,7 +130,9 @@ public class IEnchant extends JavaPlugin {
 			}
 		}
 
-		/* Helmet till DAT SHOEEEEES! (Said the cow) */
+		/*
+		 * - Helmet - Chestplate - Leggings - Boots
+		 */
 
 		if (cmd.getName().equalsIgnoreCase("garmor")) {
 			if (p.hasPermission("ienchant.garmor")) {
@@ -233,11 +247,268 @@ public class IEnchant extends JavaPlugin {
 				pi.addItem(cc);
 				pi.addItem(ll);
 				pi.addItem(bb);
+			} else {
+				p.sendMessage(errorp);
+			}
+		}
+
+		if (cmd.getName().equalsIgnoreCase("Enchant")) {
+
+			ItemStack i = p.getItemInHand();
+
+			if (p.hasPermission("IEnchant.enchant")) {
+				if (args.length == 0) {
+					p.sendMessage(errora);
+				} else if (args.length == 1) {
+
+					String en = args[0];
+
+					if (en.equalsIgnoreCase("power")) {
+						i.addUnsafeEnchantment(Enchantment.ARROW_DAMAGE, 1);
+						p.sendMessage(a + "Item enchanted with " + args[0]);
+					} else if (en.equalsIgnoreCase("flame")) {
+						i.addUnsafeEnchantment(Enchantment.ARROW_FIRE, 1);
+						p.sendMessage(a + "Item enchanted with " + args[0]);
+					} else if (en.equalsIgnoreCase("infinity")) {
+						i.addUnsafeEnchantment(Enchantment.ARROW_INFINITE, 1);
+						p.sendMessage(a + "Item enchanted with " + args[0]);
+					} else if (en.equalsIgnoreCase("punch")) {
+						i.addUnsafeEnchantment(Enchantment.ARROW_KNOCKBACK, 1);
+						p.sendMessage(a + "Item enchanted with " + args[0]);
+					} else if (en.equalsIgnoreCase("sharpness")) {
+						i.addUnsafeEnchantment(Enchantment.DAMAGE_ALL, 1);
+						p.sendMessage(a + "Item enchanted with " + args[0]);
+					} else if (en.equalsIgnoreCase("arhtropods")) {
+						i.addUnsafeEnchantment(Enchantment.DAMAGE_ARTHROPODS, 1);
+						p.sendMessage(a + "Item enchanted with " + args[0]);
+					} else if (en.equalsIgnoreCase("smite")) {
+						i.addUnsafeEnchantment(Enchantment.DAMAGE_UNDEAD, 1);
+						p.sendMessage(a + "Item enchanted with " + args[0]);
+					} else if (en.equalsIgnoreCase("efficiency")) {
+						i.addUnsafeEnchantment(Enchantment.DIG_SPEED, 1);
+						p.sendMessage(a + "Item enchanted with " + args[0]);
+					} else if (en.equalsIgnoreCase("unbreaking")) {
+						i.addUnsafeEnchantment(Enchantment.DURABILITY, 1);
+						p.sendMessage(a + "Item enchanted with " + args[0]);
+					} else if (en.equalsIgnoreCase("fire")) {
+						i.addUnsafeEnchantment(Enchantment.FIRE_ASPECT, 1);
+						p.sendMessage(a + "Item enchanted with " + args[0]);
+					} else if (en.equalsIgnoreCase("fortune")) {
+						i.addUnsafeEnchantment(Enchantment.LOOT_BONUS_BLOCKS, 1);
+						p.sendMessage(a + "Item enchanted with " + args[0]);
+					} else if (en.equalsIgnoreCase("knockback")) {
+						i.addUnsafeEnchantment(Enchantment.KNOCKBACK, 1);
+						p.sendMessage(a + "Item enchanted with " + args[0]);
+					} else if (en.equalsIgnoreCase("looting")) {
+						i.addUnsafeEnchantment(Enchantment.LOOT_BONUS_MOBS, 1);
+						p.sendMessage(a + "Item enchanted with " + args[0]);
+					} else if (en.equalsIgnoreCase("respiration")) {
+						i.addUnsafeEnchantment(Enchantment.OXYGEN, 1);
+						p.sendMessage(a + "Item enchanted with " + args[0]);
+					} else if (en.equalsIgnoreCase("protection")) {
+						i.addUnsafeEnchantment(
+								Enchantment.PROTECTION_ENVIRONMENTAL, 1);
+						p.sendMessage(a + "Item enchanted with " + args[0]);
+					} else if (en.equalsIgnoreCase("blastprot")) {
+						i.addUnsafeEnchantment(
+								Enchantment.PROTECTION_EXPLOSIONS, 1);
+						p.sendMessage(a + "Item enchanted with " + args[0]);
+					} else if (en.equalsIgnoreCase("feather")) {
+						i.addUnsafeEnchantment(Enchantment.PROTECTION_FALL, 1);
+						p.sendMessage(a + "Item enchanted with " + args[0]);
+					} else if (en.equalsIgnoreCase("fireprot")) {
+						i.addUnsafeEnchantment(Enchantment.PROTECTION_FIRE, 1);
+						p.sendMessage(a + "Item enchanted with " + args[0]);
+					} else if (en.equalsIgnoreCase("projectileprot")) {
+						i.addUnsafeEnchantment(
+								Enchantment.PROTECTION_PROJECTILE, 1);
+						p.sendMessage(a + "Item enchanted with " + args[0]);
+					} else if (en.equalsIgnoreCase("silk")) {
+						i.addUnsafeEnchantment(Enchantment.SILK_TOUCH, 1);
+						p.sendMessage(a + "Item enchanted with " + args[0]);
+					} else if (en.equalsIgnoreCase("thorns")) {
+						i.addUnsafeEnchantment(Enchantment.THORNS, 1);
+						p.sendMessage(a + "Item enchanted with " + args[0]);
+					} else if (en.equalsIgnoreCase("aqua")) {
+						i.addUnsafeEnchantment(Enchantment.WATER_WORKER, 1);
+						p.sendMessage(a + "Item enchanted with " + args[0]);
+					} else {
+						p.sendMessage(errore);
+					}
+
+				} else if (args.length == 2) {
+
+					String en = args[0];
+					int lvl = Integer.parseInt(args[1]);
+
+					if (en.equalsIgnoreCase("power")) {
+						i.addUnsafeEnchantment(Enchantment.ARROW_DAMAGE, lvl);
+						p.sendMessage(a + "Item enchanted with " + args[0] + " With level " + lvl);
+					} else if (en.equalsIgnoreCase("flame")) {
+						i.addUnsafeEnchantment(Enchantment.ARROW_FIRE, lvl);
+						p.sendMessage(a + "Item enchanted with " + args[0] + " With level " + lvl);
+					} else if (en.equalsIgnoreCase("infinity")) {
+						i.addUnsafeEnchantment(Enchantment.ARROW_INFINITE, lvl);
+						p.sendMessage(a + "Item enchanted with " + args[0] + " With level " + lvl);
+					} else if (en.equalsIgnoreCase("punch")) {
+						i.addUnsafeEnchantment(Enchantment.ARROW_KNOCKBACK, lvl);
+						p.sendMessage(a + "Item enchanted with " + args[0] + " With level " + lvl);
+					} else if (en.equalsIgnoreCase("sharpness")) {
+						i.addUnsafeEnchantment(Enchantment.DAMAGE_ALL, lvl);
+						p.sendMessage(a + "Item enchanted with " + args[0] + " With level " + lvl);
+					} else if (en.equalsIgnoreCase("arhtropods")) {
+						i.addUnsafeEnchantment(Enchantment.DAMAGE_ARTHROPODS,
+								lvl);
+						p.sendMessage(a + "Item enchanted with " + args[0] + " With level " + lvl);
+					} else if (en.equalsIgnoreCase("smite")) {
+						i.addUnsafeEnchantment(Enchantment.DAMAGE_UNDEAD, lvl);
+						p.sendMessage(a + "Item enchanted with " + args[0] + " With level " + lvl);
+					} else if (en.equalsIgnoreCase("efficiency")) {
+						i.addUnsafeEnchantment(Enchantment.DIG_SPEED, lvl);
+						p.sendMessage(a + "Item enchanted with " + args[0] + " With level " + lvl);
+					} else if (en.equalsIgnoreCase("unbreaking")) {
+						i.addUnsafeEnchantment(Enchantment.DURABILITY, lvl);
+						p.sendMessage(a + "Item enchanted with " + args[0] + " With level " + lvl);
+					} else if (en.equalsIgnoreCase("fire")) {
+						i.addUnsafeEnchantment(Enchantment.FIRE_ASPECT, lvl);
+						p.sendMessage(a + "Item enchanted with " + args[0] + " With level " + lvl);
+					} else if (en.equalsIgnoreCase("fortune")) {
+						i.addUnsafeEnchantment(Enchantment.LOOT_BONUS_BLOCKS,
+								lvl);
+						p.sendMessage(a + "Item enchanted with " + args[0] + " With level " + lvl);
+					} else if (en.equalsIgnoreCase("knockback")) {
+						i.addUnsafeEnchantment(Enchantment.KNOCKBACK, lvl);
+						p.sendMessage(a + "Item enchanted with " + args[0] + " With level " + lvl);
+					} else if (en.equalsIgnoreCase("looting")) {
+						i.addUnsafeEnchantment(Enchantment.LOOT_BONUS_MOBS, lvl);
+						p.sendMessage(a + "Item enchanted with " + args[0] + " With level " + lvl);
+					} else if (en.equalsIgnoreCase("respiration")) {
+						i.addUnsafeEnchantment(Enchantment.OXYGEN, lvl);
+						p.sendMessage(a + "Item enchanted with " + args[0] + " With level " + lvl);
+					} else if (en.equalsIgnoreCase("protection")) {
+						i.addUnsafeEnchantment(
+								Enchantment.PROTECTION_ENVIRONMENTAL, lvl);
+						p.sendMessage(a + "Item enchanted with " + args[0] + " With level " + lvl);
+					} else if (en.equalsIgnoreCase("blastprot")) {
+						i.addUnsafeEnchantment(
+								Enchantment.PROTECTION_EXPLOSIONS, lvl);
+						p.sendMessage(a + "Item enchanted with " + args[0] + " With level " + lvl);
+					} else if (en.equalsIgnoreCase("feather")) {
+						i.addUnsafeEnchantment(Enchantment.PROTECTION_FALL, lvl);
+						p.sendMessage(a + "Item enchanted with " + args[0] + " With level " + lvl);
+					} else if (en.equalsIgnoreCase("fireprot")) {
+						i.addUnsafeEnchantment(Enchantment.PROTECTION_FIRE, lvl);
+						p.sendMessage(a + "Item enchanted with " + args[0] + " With level " + lvl);
+					} else if (en.equalsIgnoreCase("projectileprot")) {
+						i.addUnsafeEnchantment(
+								Enchantment.PROTECTION_PROJECTILE, lvl);
+						p.sendMessage(a + "Item enchanted with " + args[0] + " With level " + lvl);
+					} else if (en.equalsIgnoreCase("silk")) {
+						i.addUnsafeEnchantment(Enchantment.SILK_TOUCH, lvl);
+						p.sendMessage(a + "Item enchanted with " + args[0] + " With level " + lvl);
+					} else if (en.equalsIgnoreCase("thorns")) {
+						i.addUnsafeEnchantment(Enchantment.THORNS, lvl);
+						p.sendMessage(a + "Item enchanted with " + args[0] + " With level " + lvl);
+					} else if (en.equalsIgnoreCase("aqua")) {
+						i.addUnsafeEnchantment(Enchantment.WATER_WORKER, lvl);
+						p.sendMessage(a + "Item enchanted with " + args[0] + " With level " + lvl);
+					} else {
+						p.sendMessage(errore + " , You typed:" + args[0]
+								+ " with level " + lvl);
+					}
+
+				} else {
+					p.sendMessage(errora);
+				}
+
+			} else {
+				p.sendMessage(errorp);
+			}
+		}
+
+		/* 98303 */
+
+		if (cmd.getName().equalsIgnoreCase("allenchant")) {
+			if (p.hasPermission("ienchant.allenchant")) {
+
+				ItemStack ih = p.getItemInHand();
+
+				if (args.length == 0) {
+					ih.addUnsafeEnchantment(Enchantment.ARROW_DAMAGE, 98303);
+					ih.addUnsafeEnchantment(Enchantment.ARROW_FIRE, 98303);
+					ih.addUnsafeEnchantment(Enchantment.ARROW_INFINITE, 98303);
+					ih.addUnsafeEnchantment(Enchantment.ARROW_KNOCKBACK, 98303);
+					ih.addUnsafeEnchantment(Enchantment.DAMAGE_ALL, 98303);
+					ih.addUnsafeEnchantment(Enchantment.DAMAGE_ARTHROPODS,
+							98303);
+					ih.addUnsafeEnchantment(Enchantment.DAMAGE_UNDEAD, 98303);
+					ih.addUnsafeEnchantment(Enchantment.DIG_SPEED, 98303);
+					ih.addUnsafeEnchantment(Enchantment.DURABILITY, 98303);
+					ih.addUnsafeEnchantment(Enchantment.FIRE_ASPECT, 98303);
+					ih.addUnsafeEnchantment(Enchantment.KNOCKBACK, 98303);
+					ih.addUnsafeEnchantment(Enchantment.LOOT_BONUS_BLOCKS,
+							98303);
+					ih.addUnsafeEnchantment(Enchantment.LOOT_BONUS_MOBS, 98303);
+					ih.addUnsafeEnchantment(Enchantment.OXYGEN, 98303);
+					ih.addUnsafeEnchantment(
+							Enchantment.PROTECTION_ENVIRONMENTAL, 98303);
+					ih.addUnsafeEnchantment(Enchantment.PROTECTION_EXPLOSIONS,
+							98303);
+					ih.addUnsafeEnchantment(Enchantment.PROTECTION_FALL, 98303);
+					ih.addUnsafeEnchantment(Enchantment.PROTECTION_FIRE, 98303);
+					ih.addUnsafeEnchantment(Enchantment.PROTECTION_PROJECTILE,
+							98303);
+					ih.addUnsafeEnchantment(Enchantment.SILK_TOUCH, 98303);
+					ih.addUnsafeEnchantment(Enchantment.THORNS, 98303);
+					ih.addUnsafeEnchantment(Enchantment.WATER_WORKER, 98303);
+
+					p.sendMessage(a
+							+ "Enchanted with all enchants with ultimate max level.");
+
+				} else if (args.length == 1) {
+
+					int lvl = Integer.parseInt(args[0]);
+					
+
+					ih.addUnsafeEnchantment(Enchantment.ARROW_DAMAGE, lvl);
+					ih.addUnsafeEnchantment(Enchantment.ARROW_FIRE, lvl);
+					ih.addUnsafeEnchantment(Enchantment.ARROW_INFINITE, lvl);
+					ih.addUnsafeEnchantment(Enchantment.ARROW_KNOCKBACK, lvl);
+					ih.addUnsafeEnchantment(Enchantment.DAMAGE_ALL, lvl);
+					ih.addUnsafeEnchantment(Enchantment.DAMAGE_ARTHROPODS, lvl);
+					ih.addUnsafeEnchantment(Enchantment.DAMAGE_UNDEAD, lvl);
+					ih.addUnsafeEnchantment(Enchantment.DIG_SPEED, lvl);
+					ih.addUnsafeEnchantment(Enchantment.DURABILITY, lvl);
+					ih.addUnsafeEnchantment(Enchantment.FIRE_ASPECT, lvl);
+					ih.addUnsafeEnchantment(Enchantment.KNOCKBACK, lvl);
+					ih.addUnsafeEnchantment(Enchantment.LOOT_BONUS_BLOCKS, lvl);
+					ih.addUnsafeEnchantment(Enchantment.LOOT_BONUS_MOBS, lvl);
+					ih.addUnsafeEnchantment(Enchantment.OXYGEN, lvl);
+					ih.addUnsafeEnchantment(
+							Enchantment.PROTECTION_ENVIRONMENTAL, lvl);
+					ih.addUnsafeEnchantment(Enchantment.PROTECTION_EXPLOSIONS,
+							lvl);
+					ih.addUnsafeEnchantment(Enchantment.PROTECTION_FALL, lvl);
+					ih.addUnsafeEnchantment(Enchantment.PROTECTION_FIRE, lvl);
+					ih.addUnsafeEnchantment(Enchantment.PROTECTION_PROJECTILE,
+							lvl);
+					ih.addUnsafeEnchantment(Enchantment.SILK_TOUCH, lvl);
+					ih.addUnsafeEnchantment(Enchantment.THORNS, lvl);
+					ih.addUnsafeEnchantment(Enchantment.WATER_WORKER, lvl);
+
+					p.sendMessage(a + "Enchanted with all enchant with level "
+							+ lvl + " (Costum level");
+
+				} else {
+					p.sendMessage(errora);
+				}
+
+			} else {
+				p.sendMessage(errorp);
 			}
 		}
 
 		return false;
 
 	}
-
 }
